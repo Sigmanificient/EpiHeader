@@ -52,7 +52,7 @@ class Args:
     
     def __add_folder(self, folder: Path, files: list[Path]):
         for f in folder.iterdir():
-            if f.is_file() and (f.suffix == ".h" or f.suffix == ".c"):
+            if f.is_file() and f.suffix in [".h", ".c"]:
                 files.append(f)
             elif f.is_dir():
                 self.__add_folder(f, files)
@@ -68,7 +68,7 @@ def usage():
 
 
 def fix_header(file: Path, project_name: str) -> None:
-    if file.suffix != ".h" and file.suffix != ".c":
+    if file.suffix not in [".h", ".c"]:
         return
     with open(file, "r") as f:
         lines = f.readlines()
